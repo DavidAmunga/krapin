@@ -145,7 +145,7 @@ function App() {
           siteName: "KRA PIN Manager",
           images: [
             {
-              url: "https://krapin.web.app/og-image.jpg",
+              url: "https://krapin.web.app/ogimage.png",
               width: 1200,
               height: 630,
               alt: "KRA PIN Manager",
