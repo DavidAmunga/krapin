@@ -36,6 +36,7 @@ import {
 import { ModeToggle } from "./components/mode-toggle";
 import { Card } from "./components/ui/card";
 import { DefaultSeo } from "next-seo";
+import { toast } from "sonner";
 
 const PIN_STORAGE_KEY = "krapins";
 
@@ -111,8 +112,8 @@ function App() {
   };
 
   const handleCopyToClipboard = (pin: PIN) => {
-    const text = `Name: ${pin.name}\nPIN: ${pin.pin}`;
-    navigator.clipboard.writeText(text);
+    toast.success("Copied to Clipboard",{position:"top-center"});
+    navigator.clipboard.writeText(pin.pin);
   };
 
   const handleWhatsAppShare = (pin: PIN) => {
