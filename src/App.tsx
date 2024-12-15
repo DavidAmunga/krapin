@@ -35,7 +35,6 @@ import {
 } from "./components/ui/alert-dialog";
 import { ModeToggle } from "./components/mode-toggle";
 import { Card } from "./components/ui/card";
-import { DefaultSeo } from "next-seo";
 import { toast } from "sonner";
 
 const PIN_STORAGE_KEY = "krapins";
@@ -136,28 +135,6 @@ function App() {
 
   return (
     <>
-      <DefaultSeo
-        title="KRA PIN Manager"
-        description="Offline KRA PIN vault"
-        openGraph={{
-          type: "website",
-          url: "https://krapin.web.app/",
-          siteName: "KRA PIN Manager",
-          images: [
-            {
-              url: "https://krapin.web.app/ogimage.png",
-              width: 1200,
-              height: 630,
-              alt: "KRA PIN Manager",
-            },
-          ],
-        }}
-        twitter={{
-          handle: "@davidamunga_",
-          site: "@davidamunga_",
-          cardType: "summary_large_image",
-        }}
-      />
       <div className="h-screen flex flex-col bg-background">
         <main className="container h-full flex flex-col mx-auto px-4 py-8">
           <div className="flex justify-between items-center mb-8">
