@@ -33,7 +33,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./components/ui/alert-dialog";
-import { ThemeProvider } from "./components/theme-provider";
 import { ModeToggle } from "./components/mode-toggle";
 
 const PIN_STORAGE_KEY = "krapins";
@@ -133,169 +132,97 @@ function App() {
   };
 
   return (
-    <ThemeProvider defaultTheme="system" enableSystem>
-      <div className="min-h-screen bg-background">
-        <main className="container mx-auto px-4 py-8">
-          <div className="flex justify-between items-center mb-8">
-            <div>
-              <div className="flex items-center gap-2">
-                <img src="/logo.svg" alt="KRA PIN Logo" className="h-8 w-auto" />
-                <h1 className="text-3xl font-bold">KRA PIN Manager</h1>
-              </div>
-              <p className="text-muted-foreground">
-                Store all your KRA PINs securely offline
-              </p>
-            </div>
+    <div className="min-h-screen bg-background">
+      <main className="container mx-auto px-4 py-8">
+        <div className="flex justify-between items-center mb-8">
+          <div>
             <div className="flex items-center gap-2">
-              <ModeToggle />
-              <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                <SheetTrigger asChild>
-                  <Button onClick={handleAddNew}>
-                    <PlusIcon className="mr-2 h-4 w-4" /> Add PIN
-                  </Button>
-                </SheetTrigger>
-                <SheetContent
-                  side={isMobile ? "bottom" : "right"}
-                  className={isMobile ? "max-h-[70vh] overflow-hidden" : ""}
-                >
-                  <SheetHeader>
-                    <SheetTitle>
-                      {selectedPin ? "View/Edit PIN" : "Add New PIN"}
-                    </SheetTitle>
-                  </SheetHeader>
-                  {selectedPin ? (
-                    <Tabs defaultValue="view" className="mt-6">
-                      <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="view">View</TabsTrigger>
-                        <TabsTrigger value="edit">Edit</TabsTrigger>
-                      </TabsList>
-                      <TabsContent value="view" className="mt-4">
-                        <div className="space-y-4">
-                          <div className="flex flex-col gap-1">
-                            <Label>{selectedPin.name}</Label>
-                            <p className="text-lg font-medium">{selectedPin.pin}</p>
+              <img src="/logo.svg" alt="KRA PIN Logo" className="h-8 w-auto" />
+              <h1 className="text-3xl font-bold">KRA PIN Manager</h1>
+            </div>
+            <p className="text-muted-foreground">
+              Store all your KRA PINs securely offline
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <ModeToggle />
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button onClick={handleAddNew}>
+                  <PlusIcon className="mr-2 h-4 w-4" /> Add PIN
+                </Button>
+              </SheetTrigger>
+              <SheetContent
+                side={isMobile ? "bottom" : "right"}
+                className={isMobile ? "max-h-[70vh] overflow-hidden" : ""}
+              >
+                <SheetHeader>
+                  <SheetTitle>
+                    {selectedPin ? "View/Edit PIN" : "Add New PIN"}
+                  </SheetTitle>
+                </SheetHeader>
+                {selectedPin ? (
+                  <Tabs defaultValue="view" className="mt-6">
+                    <TabsList className="grid w-full grid-cols-2">
+                      <TabsTrigger value="view">View</TabsTrigger>
+                      <TabsTrigger value="edit">Edit</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="view" className="mt-4">
+                      <div className="space-y-4">
+                        <div className="flex flex-col gap-1">
+                          <Label>{selectedPin.name}</Label>
+                          <p className="text-lg font-medium">
+                            {selectedPin.pin}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <Label>Date Created</Label>
+                            <p className="text-sm text-muted-foreground">
+                              {new Date(selectedPin.createdAt).toDateString()}
+                            </p>
                           </div>
-
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <Label>Date Created</Label>
-                              <p className="text-sm text-muted-foreground">
-                                {new Date(selectedPin.createdAt).toDateString()}
-                              </p>
-                            </div>
-                            <div>
-                              <Label>Last Updated</Label>
-                              <p className="text-sm text-muted-foreground">
-                                {new Date(selectedPin.updatedAt).toDateString()}
-                              </p>
-                            </div>
+                          <div>
+                            <Label>Last Updated</Label>
+                            <p className="text-sm text-muted-foreground">
+                              {new Date(selectedPin.updatedAt).toDateString()}
+                            </p>
                           </div>
-                          {isMobile ? (
-                            <ScrollArea className="h-[calc(70vh-350px)]">
-                              <div className="flex flex-col gap-2">
-                                <Button
-                                  variant="outline"
-                                  className="w-full"
-                                  onClick={() => handleCopyToClipboard(selectedPin)}
-                                >
-                                  <CopyIcon className="mr-2 h-4 w-4" />
-                                  Copy to Clipboard
-                                </Button>
+                        </div>
+                        {isMobile ? (
+                          <ScrollArea className="h-[calc(70vh-350px)]">
+                            <div className="flex flex-col gap-2">
+                              <Button
+                                variant="outline"
+                                className="w-full"
+                                onClick={() =>
+                                  handleCopyToClipboard(selectedPin)
+                                }
+                              >
+                                <CopyIcon className="mr-2 h-4 w-4" />
+                                Copy to Clipboard
+                              </Button>
 
-                                <Button
-                                  variant="outline"
-                                  className="w-full"
-                                  onClick={() => handleWhatsAppShare(selectedPin)}
-                                >
-                                  <Share1Icon className="mr-2 h-4 w-4" />
-                                  Share via WhatsApp
-                                </Button>
+                              <Button
+                                variant="outline"
+                                className="w-full"
+                                onClick={() => handleWhatsAppShare(selectedPin)}
+                              >
+                                <Share1Icon className="mr-2 h-4 w-4" />
+                                Share via WhatsApp
+                              </Button>
 
-                                <Button
-                                  variant="outline"
-                                  className="w-full"
-                                  onClick={() => handleEmailShare(selectedPin)}
-                                >
-                                  <EnvelopeClosedIcon className="mr-2 h-4 w-4" />
-                                  Share via Email
-                                </Button>
-                                  <div className="mt-2 p-4 bg-white rounded-lg flex items-center justify-center ">
-                                    <QRCode value={selectedPin.pin} size={200} />
-                                  </div>
-                                <div className="flex flex-col gap-2">
-                                  <AlertDialog>
-                                    <AlertDialogTrigger asChild>
-                                      <Button
-                                        variant="destructive"
-                                        className="w-full"
-                                      >
-                                        <TrashIcon className="mr-2 h-4 w-4" />
-                                        Delete PIN
-                                      </Button>
-                                    </AlertDialogTrigger>
-                                    <AlertDialogContent>
-                                      <AlertDialogHeader>
-                                        <AlertDialogTitle>
-                                          Are you sure?
-                                        </AlertDialogTitle>
-                                        <AlertDialogDescription>
-                                          This action cannot be undone. This will
-                                          permanently delete the PIN for{" "}
-                                          {selectedPin.name}.
-                                        </AlertDialogDescription>
-                                      </AlertDialogHeader>
-                                      <AlertDialogFooter>
-                                        <AlertDialogCancel>
-                                          Cancel
-                                        </AlertDialogCancel>
-                                        <AlertDialogAction
-                                          onClick={() =>
-                                            handleDelete(selectedPin.id)
-                                          }
-                                          className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                                        >
-                                          Delete
-                                        </AlertDialogAction>
-                                      </AlertDialogFooter>
-                                    </AlertDialogContent>
-                                  </AlertDialog>
-                                </div>
-                              </div>
-                            </ScrollArea>
-                          ) : (
-                            <>
-                              <div className="flex flex-col gap-2">
-                                <Button
-                                  variant="outline"
-                                  className="w-full"
-                                  onClick={() => handleCopyToClipboard(selectedPin)}
-                                >
-                                  <CopyIcon className="mr-2 h-4 w-4" />
-                                  Copy to Clipboard
-                                </Button>
-
-                                <Button
-                                  variant="outline"
-                                  className="w-full"
-                                  onClick={() => handleWhatsAppShare(selectedPin)}
-                                >
-                                  <Share1Icon className="mr-2 h-4 w-4" />
-                                  Share via WhatsApp
-                                </Button>
-
-                                <Button
-                                  variant="outline"
-                                  className="w-full"
-                                  onClick={() => handleEmailShare(selectedPin)}
-                                >
-                                  <EnvelopeClosedIcon className="mr-2 h-4 w-4" />
-                                  Share via Email
-                                </Button>
-                              </div>
-                              <div className="mt-3">
-                                <div className="mt-2 p-4 bg-white rounded-lg flex justify-center items-center ">
-                                  <QRCode value={selectedPin.pin} size={200} />
-                                </div>
+                              <Button
+                                variant="outline"
+                                className="w-full"
+                                onClick={() => handleEmailShare(selectedPin)}
+                              >
+                                <EnvelopeClosedIcon className="mr-2 h-4 w-4" />
+                                Share via Email
+                              </Button>
+                              <div className="mt-2 p-4 bg-white rounded-lg flex items-center justify-center ">
+                                <QRCode value={selectedPin.pin} size={200} />
                               </div>
                               <div className="flex flex-col gap-2">
                                 <AlertDialog>
@@ -320,9 +247,13 @@ function App() {
                                       </AlertDialogDescription>
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>
-                                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                      <AlertDialogCancel>
+                                        Cancel
+                                      </AlertDialogCancel>
                                       <AlertDialogAction
-                                        onClick={() => handleDelete(selectedPin.id)}
+                                        onClick={() =>
+                                          handleDelete(selectedPin.id)
+                                        }
                                         className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                                       >
                                         Delete
@@ -331,149 +262,228 @@ function App() {
                                   </AlertDialogContent>
                                 </AlertDialog>
                               </div>
-                            </>
-                          )}
-                        </div>
-                      </TabsContent>
-                      <TabsContent value="edit">
-                        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
-                          <div>
-                            <Label htmlFor="name">Name</Label>
-                            <Input
-                              id="name"
-                              value={formData.name}
-                              onChange={(e) =>
-                                setFormData({ ...formData, name: e.target.value })
-                              }
-                              required
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor="pin">PIN</Label>
-                            <Input
-                              id="pin"
-                              value={formData.pin}
-                              onChange={(e) => {
-                                const value = e.target.value.replace(/\s/g, "");
-                                setFormData({ ...formData, pin: formatPIN(value) });
-                              }}
-                              placeholder="123 4567 890"
-                              maxLength={11}
-                              required
-                            />
-                          </div>
-                          <Button type="submit" className="w-full">
-                            Update PIN
-                          </Button>
-                        </form>
-                      </TabsContent>
-                    </Tabs>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-4 pr-4">
-                      <div>
-                        <Label htmlFor="name">Name</Label>
-                        <Input
-                          id="name"
-                          value={formData.name}
-                          onChange={(e) =>
-                            setFormData({ ...formData, name: e.target.value })
-                          }
-                          required
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="pin">PIN</Label>
-                        <Input
-                          id="pin"
-                          value={formData.pin}
-                          onChange={(e) => {
-                            const value = e.target.value.replace(/\s/g, "");
-                            setFormData({ ...formData, pin: formatPIN(value) });
-                          }}
-                          placeholder="123 4567 890"
-                          maxLength={11}
-                          required
-                        />
-                      </div>
-                      <Button type="submit" className="w-full">
-                        Add PIN
-                      </Button>
-                    </form>
-                  )}
-                </SheetContent>
-              </Sheet>
-            </div>
-          </div>
+                            </div>
+                          </ScrollArea>
+                        ) : (
+                          <>
+                            <div className="flex flex-col gap-2">
+                              <Button
+                                variant="outline"
+                                className="w-full"
+                                onClick={() =>
+                                  handleCopyToClipboard(selectedPin)
+                                }
+                              >
+                                <CopyIcon className="mr-2 h-4 w-4" />
+                                Copy to Clipboard
+                              </Button>
 
-          {pins.length === 0 ? (
-            <div className="text-center py-12">
-              <h2 className="text-xl font-semibold mb-2">No PINs Added Yet</h2>
-              <p className="text-muted-foreground mb-4">
-                Click the Add PIN button to store your first KRA PIN
-              </p>
-              <Button onClick={handleAddNew}>
-                <PlusIcon className="mr-2 h-4 w-4" /> Add PIN
-              </Button>
-            </div>
-          ) : (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {pins.map((pin) => (
-                <div
-                  key={pin.id}
-                  className="p-4 rounded-lg border bg-card hover:bg-accent transition-colors"
-                >
-                  <div className="flex justify-between items-start">
-                    <div
-                      className="flex-1 cursor-pointer"
-                      onClick={() => handlePinClick(pin)}
-                    >
-                      <h3 className="font-medium mb-2">{pin.name}</h3>
-                      <p className="text-muted-foreground">{pin.pin}</p>
-                      <div className="mt-2 text-xs text-muted-foreground">
-                        <p>Created: {new Date(pin.createdAt).toDateString()}</p>
-                        <p>
-                          Last edited: {new Date(pin.updatedAt).toDateString()}
-                        </p>
+                              <Button
+                                variant="outline"
+                                className="w-full"
+                                onClick={() => handleWhatsAppShare(selectedPin)}
+                              >
+                                <Share1Icon className="mr-2 h-4 w-4" />
+                                Share via WhatsApp
+                              </Button>
+
+                              <Button
+                                variant="outline"
+                                className="w-full"
+                                onClick={() => handleEmailShare(selectedPin)}
+                              >
+                                <EnvelopeClosedIcon className="mr-2 h-4 w-4" />
+                                Share via Email
+                              </Button>
+                            </div>
+                            <div className="mt-3">
+                              <div className="mt-2 p-4 bg-white rounded-lg flex justify-center items-center ">
+                                <QRCode value={selectedPin.pin} size={200} />
+                              </div>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                  <Button
+                                    variant="destructive"
+                                    className="w-full"
+                                  >
+                                    <TrashIcon className="mr-2 h-4 w-4" />
+                                    Delete PIN
+                                  </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>
+                                      Are you sure?
+                                    </AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                      This action cannot be undone. This will
+                                      permanently delete the PIN for{" "}
+                                      {selectedPin.name}.
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel>
+                                      Cancel
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                      onClick={() =>
+                                        handleDelete(selectedPin.id)
+                                      }
+                                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                    >
+                                      Delete
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+                            </div>
+                          </>
+                        )}
                       </div>
-                    </div>
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="text-muted-foreground hover:text-destructive"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <TrashIcon className="h-4 w-4" />
+                    </TabsContent>
+                    <TabsContent value="edit">
+                      <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                        <div>
+                          <Label htmlFor="name">Name</Label>
+                          <Input
+                            id="name"
+                            value={formData.name}
+                            onChange={(e) =>
+                              setFormData({ ...formData, name: e.target.value })
+                            }
+                            required
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="pin">PIN</Label>
+                          <Input
+                            id="pin"
+                            value={formData.pin}
+                            onChange={(e) => {
+                              const value = e.target.value.replace(/\s/g, "");
+                              setFormData({
+                                ...formData,
+                                pin: formatPIN(value),
+                              });
+                            }}
+                            placeholder="123 4567 890"
+                            maxLength={11}
+                            required
+                          />
+                        </div>
+                        <Button type="submit" className="w-full">
+                          Update PIN
                         </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            This action cannot be undone. This will permanently
-                            delete the PIN for {pin.name}.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction
-                            onClick={() => handleDelete(pin.id)}
-                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                          >
-                            Delete
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
+                      </form>
+                    </TabsContent>
+                  </Tabs>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-4 pr-4">
+                    <div>
+                      <Label htmlFor="name">Name</Label>
+                      <Input
+                        id="name"
+                        value={formData.name}
+                        onChange={(e) =>
+                          setFormData({ ...formData, name: e.target.value })
+                        }
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="pin">PIN</Label>
+                      <Input
+                        id="pin"
+                        value={formData.pin}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\s/g, "");
+                          setFormData({ ...formData, pin: formatPIN(value) });
+                        }}
+                        placeholder="123 4567 890"
+                        maxLength={11}
+                        required
+                      />
+                    </div>
+                    <Button type="submit" className="w-full">
+                      Add PIN
+                    </Button>
+                  </form>
+                )}
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+
+        {pins.length === 0 ? (
+          <div className="text-center py-12">
+            <h2 className="text-xl font-semibold mb-2">No PINs Added Yet</h2>
+            <p className="text-muted-foreground mb-4">
+              Click the Add PIN button to store your first KRA PIN
+            </p>
+            <Button onClick={handleAddNew}>
+              <PlusIcon className="mr-2 h-4 w-4" /> Add PIN
+            </Button>
+          </div>
+        ) : (
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {pins.map((pin) => (
+              <div
+                key={pin.id}
+                className="p-4 rounded-lg border bg-card hover:bg-accent transition-colors"
+              >
+                <div className="flex justify-between items-start">
+                  <div
+                    className="flex-1 cursor-pointer"
+                    onClick={() => handlePinClick(pin)}
+                  >
+                    <h3 className="font-medium mb-2">{pin.name}</h3>
+                    <p className="text-muted-foreground">{pin.pin}</p>
+                    <div className="mt-2 text-xs text-muted-foreground">
+                      <p>Created: {new Date(pin.createdAt).toDateString()}</p>
+                      <p>
+                        Last edited: {new Date(pin.updatedAt).toDateString()}
+                      </p>
+                    </div>
                   </div>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="text-muted-foreground hover:text-destructive"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <TrashIcon className="h-4 w-4" />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This action cannot be undone. This will permanently
+                          delete the PIN for {pin.name}.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => handleDelete(pin.id)}
+                          className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        >
+                          Delete
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
-              ))}
-            </div>
-          )}
-        </main>
-      </div>
-    </ThemeProvider>
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
+    </div>
   );
 }
 
