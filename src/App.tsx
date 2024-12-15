@@ -132,15 +132,15 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <main className="container mx-auto px-4 py-8">
+    <div className="h-screen flex flex-col bg-background">
+      <main className="container h-full flex flex-col mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
             <div className="flex items-center gap-2">
               <img src="/logo.svg" alt="KRA PIN Logo" className="h-8 w-auto" />
-              <h1 className="text-3xl font-bold">KRA PIN Manager</h1>
+              <h1 className="text-2xl font-bold">KRA PIN Manager</h1>
             </div>
-            <p className="text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               Store all your KRA PINs securely offline
             </p>
           </div>
@@ -148,8 +148,12 @@ function App() {
             <ModeToggle />
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
-                <Button onClick={handleAddNew}>
-                  <PlusIcon className="mr-2 h-4 w-4" /> Add PIN
+                <Button
+                  className="flex items-center gap-2"
+                  onClick={handleAddNew}
+                >
+                  <PlusIcon className="h-4 w-4" />
+                  <span className="hidden md:inline-flex">Add PIN</span>
                 </Button>
               </SheetTrigger>
               <SheetContent
@@ -349,6 +353,7 @@ function App() {
                           <Label htmlFor="name">Name</Label>
                           <Input
                             id="name"
+                            placeholder="Name"
                             value={formData.name}
                             onChange={(e) =>
                               setFormData({ ...formData, name: e.target.value })
@@ -369,7 +374,7 @@ function App() {
                               });
                             }}
                             placeholder="123 4567 890"
-                            maxLength={11}
+                            maxLength={13}
                             required
                           />
                         </div>
@@ -385,6 +390,7 @@ function App() {
                       <Label htmlFor="name">Name</Label>
                       <Input
                         id="name"
+                        placeholder="Name"
                         value={formData.name}
                         onChange={(e) =>
                           setFormData({ ...formData, name: e.target.value })
@@ -402,7 +408,7 @@ function App() {
                           setFormData({ ...formData, pin: formatPIN(value) });
                         }}
                         placeholder="123 4567 890"
-                        maxLength={11}
+                        maxLength={13}
                         required
                       />
                     </div>
@@ -417,7 +423,7 @@ function App() {
         </div>
 
         {pins.length === 0 ? (
-          <div className="text-center py-12">
+          <div className="text-center py-12 items-center justify-center flex-1 flex flex-col h-full bg-gray-50 rounded-sm border">
             <h2 className="text-xl font-semibold mb-2">No PINs Added Yet</h2>
             <p className="text-muted-foreground mb-4">
               Click the Add PIN button to store your first KRA PIN
@@ -427,11 +433,11 @@ function App() {
             </Button>
           </div>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 bg-gray-50 rounded-sm border h-full  pt-3 px-3">
             {pins.map((pin) => (
               <div
                 key={pin.id}
-                className="p-4 rounded-lg border bg-card hover:bg-accent transition-colors"
+                className="p-4 rounded-lg h-fit border bg-card hover:bg-accent transition-colors"
               >
                 <div className="flex justify-between items-start">
                   <div
@@ -483,6 +489,13 @@ function App() {
           </div>
         )}
       </main>
+      <footer className="container text-sm text-gray-600 mx-auto px-4 text-center pb-3">
+        Made by{" "}
+        <a href="https://twitter.com/davidamunga_" className="underline">
+          David Amunga
+        </a>{" "}
+        in Kenya
+      </footer>
     </div>
   );
 }
