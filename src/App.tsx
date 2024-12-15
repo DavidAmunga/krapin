@@ -140,12 +140,11 @@ function App() {
         description="Store all your KRA PINs securely offline"
         openGraph={{
           type: "website",
-          locale: "en_IE",
-          url: "https://your-domain.com/",
+          url: "https://krapin.web.app/",
           siteName: "KRA PIN Manager",
           images: [
             {
-              url: "https://your-domain.com/og-image.jpg",
+              url: "https://krapin.web.app/og-image.jpg",
               width: 1200,
               height: 630,
               alt: "KRA PIN Manager",
@@ -225,7 +224,7 @@ function App() {
                             </div>
                           </div>
                           {isMobile ? (
-                            <ScrollArea className="h-[calc(70vh-350px)]">
+                            <ScrollArea className="h-[calc(80vh-350px)]">
                               <div className="flex flex-col gap-2">
                                 <Button
                                   variant="outline"
