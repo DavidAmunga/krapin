@@ -219,11 +219,9 @@ function App() {
                                   <EnvelopeClosedIcon className="mr-2 h-4 w-4" />
                                   Share via Email
                                 </Button>
-                                <div className="mt-3">
-                                  <div className="mt-2 p-4 bg-white rounded-lg inline-block">
+                                  <div className="mt-2 p-4 bg-white rounded-lg flex items-center justify-center ">
                                     <QRCode value={selectedPin.pin} size={200} />
                                   </div>
-                                </div>
                                 <div className="flex flex-col gap-2">
                                   <AlertDialog>
                                     <AlertDialogTrigger asChild>
@@ -295,7 +293,7 @@ function App() {
                                 </Button>
                               </div>
                               <div className="mt-3">
-                                <div className="mt-2 p-4 bg-white rounded-lg inline-block">
+                                <div className="mt-2 p-4 bg-white rounded-lg flex justify-center items-center ">
                                   <QRCode value={selectedPin.pin} size={200} />
                                 </div>
                               </div>
