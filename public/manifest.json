@@ -1,7 +1,7 @@
 {
   "name": "KRA PIN",
   "short_name": "KRA PIN",
-  "description": "Store all your KRA PINs in one place",
+  "description": "Offline KRA PIN vault",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

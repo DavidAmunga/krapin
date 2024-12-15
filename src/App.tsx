@@ -138,7 +138,7 @@ function App() {
     <>
       <DefaultSeo
         title="KRA PIN Manager"
-        description="Store all your KRA PINs securely offline"
+        description="Offline KRA PIN vault"
         openGraph={{
           type: "website",
           url: "https://krapin.web.app/",
@@ -171,8 +171,9 @@ function App() {
                 <h1 className="text-2xl font-bold">KRA PIN Manager</h1>
               </div>
               <p className="text-sm text-muted-foreground">
-                Store all your KRA PINs securely offline
+                Offline KRA PIN vault
               </p>
+              <a href="https://github.com/DavidAmunga" className="underline">Open Source</a>
             </div>
             <div className="flex items-center gap-2">
               <ModeToggle />

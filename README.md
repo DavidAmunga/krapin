@@ -1,7 +1,6 @@
 # KRA PIN Manager
 
-A secure offline web application for managing KRA (Kenya Revenue Authority) PINs.
-
+An offline web application for storing your KRA PINs 
 ## Features
 
 - Store and manage multiple KRA PINs
@@ -11,7 +10,7 @@ A secure offline web application for managing KRA (Kenya Revenue Authority) PINs
 - Dark/Light mode support
 - Mobile responsive design
 - Offline-first (works without internet)
-- Secure local storage
+- Zero Analytics
 
 ## Installation
 
