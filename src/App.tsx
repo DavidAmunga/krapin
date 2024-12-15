@@ -34,6 +34,7 @@ import {
   AlertDialogTrigger,
 } from "./components/ui/alert-dialog";
 import { ModeToggle } from "./components/mode-toggle";
+import { Card } from "./components/ui/card";
 
 const PIN_STORAGE_KEY = "krapins";
 
@@ -423,17 +424,18 @@ function App() {
         </div>
 
         {pins.length === 0 ? (
-          <div className="text-center py-12 items-center justify-center flex-1 flex flex-col h-full bg-gray-50 rounded-sm border">
+          <Card className="text-center py-12 items-center justify-center flex-1 flex flex-col h-full rounded-sm border">
             <h2 className="text-xl font-semibold mb-2">No PINs Added Yet</h2>
             <p className="text-muted-foreground mb-4">
               Click the Add PIN button to store your first KRA PIN
             </p>
             <Button onClick={handleAddNew}>
-              <PlusIcon className="mr-2 h-4 w-4" /> Add PIN
+              <PlusIcon className="mr-2 h-4 w-4" />
+              <span>Add PIN</span>
             </Button>
-          </div>
+          </Card>
         ) : (
-          <div className="flex flex-col gap-2  bg-gray-50 rounded-sm border h-full  pt-3 px-3">
+          <Card className="flex flex-col gap-2  rounded-sm border h-full  pt-3 px-3">
             {pins.map((pin) => (
               <div
                 key={pin.id}
@@ -486,7 +488,7 @@ function App() {
                 </div>
               </div>
             ))}
-          </div>
+          </Card>
         )}
       </main>
       <footer className="container text-sm text-gray-600 mx-auto px-4 text-center pb-3">
