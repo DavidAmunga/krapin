@@ -433,7 +433,7 @@ function App() {
             </Button>
           </div>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 bg-gray-50 rounded-sm border h-full  pt-3 px-3">
+          <div className="flex flex-col gap-2  bg-gray-50 rounded-sm border h-full  pt-3 px-3">
             {pins.map((pin) => (
               <div
                 key={pin.id}
