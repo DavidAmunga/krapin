@@ -112,7 +112,7 @@ function App() {
   };
 
   const handleCopyToClipboard = (pin: PIN) => {
-    toast.success("Copied to Clipboard",{position:"top-center"});
+    toast.success("Copied to Clipboard", { position: "top-center" });
     navigator.clipboard.writeText(pin.pin);
   };
 
@@ -173,7 +173,13 @@ function App() {
               <p className="text-sm text-muted-foreground">
                 Offline KRA PIN vault
               </p>
-              <a href="https://github.com/DavidAmunga" className="underline">Open Source</a>
+              <a
+                href="https://github.com/DavidAmunga/krapin"
+                target="__blank"
+                className="underline text-xs"
+              >
+                Open Source
+              </a>
             </div>
             <div className="flex items-center gap-2">
               <ModeToggle />
